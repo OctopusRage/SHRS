@@ -12,21 +12,21 @@ class EntryCrudController extends CrudController {
         $this->crud->setModel("App\Models\Entry");
         $this->crud->setRoute("admin/entries");
         $this->crud->setEntityNameStrings('entry', 'entries');
-
-        $this->crud->setColumns(['registration_id', 'room_id', 'entry_date', 'leave_date']);
+        $this->crud->query = $this->crud->query->where('leave_date', null);
+        $this->crud->setColumns(['registration_id', 'room_id', 'entry_date']);
         $this->crud->addField([
-        'name' => 'registration_id',
-        'label' => "Kode Registrasi"
+            'name' => 'registration_id',
+            'label' => "Kode Registrasi"
         ]);
         $this->crud->addField([
-        'name' => 'room_id',
-        'label' => "Room ID"
+            'name' => 'room_id',
+            'label' => "Room ID"
         ]);
         $this->crud->addField([
-        'name' => 'entry_date',
-        'default' => date("Y-m-d H:i:s"),
-        'label' => "Tanggal Masuk",
-        'type' => 'datetime'
+            'name' => 'entry_date',
+            'default' => date("Y-m-d H:i:s"),
+            'label' => "Tanggal Masuk",
+            'type' => 'datetime'
         ]);
     }
 
