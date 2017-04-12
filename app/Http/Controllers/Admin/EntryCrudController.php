@@ -13,7 +13,9 @@ class EntryCrudController extends CrudController {
         $this->crud->setRoute("admin/entries");
         $this->crud->setEntityNameStrings('entry', 'entries');
         $this->crud->query = $this->crud->query->where('leave_date', null);
-        $this->crud->setColumns(['registration_id', 'room_id', 'entry_date']);
+        $this->crud->setColumns(['registration_id', 'room_id', 'entry_date', 'leave_date']);
+        $this->crud->addColumn('ss');
+        $this->crud->enableExportButtons();
         $this->crud->addField([
             'name' => 'registration_id',
             'label' => "Kode Registrasi"

@@ -19,7 +19,7 @@ class Entry extends Model {
 	// protected $primaryKey = 'id';
 	// protected $guarded = [];
 	// protected $hidden = ['id'];
-	protected $fillable = ['registration_id', 'room_id', 'entry_date', 'leave_date'];
+	protected $fillable = ['registration_id', 'room_id', 'entry_date', 'leave_date', 'status'];
 	public $timestamps = true;
 
 	/*
