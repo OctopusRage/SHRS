@@ -49,7 +49,16 @@ class Entry extends Model {
 	|--------------------------------------------------------------------------
 	| ACCESORS
 	|--------------------------------------------------------------------------
-
+	*/
+	public function getStatusAttribute($value) {
+		switch ($value) {
+			case 1:
+				return 'new';
+				break;
+			default:
+				return 'moved';
+		}
+	}
 	/*
 	|--------------------------------------------------------------------------
 	| MUTATORS
