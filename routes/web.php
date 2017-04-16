@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['namespace'=>'Admin'], function(){
+    Route::get('/admin/movements/custom_create/{id}', 'MoveCrudController@customCreate')->name('custom.movements.create');
+    Route::post('/admin/movements/save', 'MoveCrudController@customSave')->name('custom.movements.save');
+});
