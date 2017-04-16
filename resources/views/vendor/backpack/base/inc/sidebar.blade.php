@@ -20,11 +20,10 @@
           <!-- ==== Recommended place for admin menu items ==== -->
           <!-- ================================================ -->
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
-
-
+          <li><a href="{{ url('admin/entries') }}"><i class="fa fa-arrow-circle-right"></i> <span>Pasien Masuk</span></a></li>
           <!-- ======================================= -->
           <li class="header">{{ trans('backpack::base.user') }}</li>
-          <li><a href="{{ url('admin/entries') }}"><i class="fa fa-arrow-circle-right"></i> <span>Pasien Masuk</span></a></li>
+          
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/elfinder') }}"><i class="fa fa-files-o"></i> <span>File manager</span></a></li>
           <li class="treeview">
             <a href="#"><i class="fa fa-group"></i> <span>Users, Roles, Permissions</span> <i class="fa fa-angle-left pull-right"></i></a>

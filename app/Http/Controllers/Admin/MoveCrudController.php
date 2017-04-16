@@ -3,8 +3,7 @@
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\EntryCrudRequest as StoreRequest;
-use App\Http\Requests\EntryCrudRequest as UpdateRequest;
+use App\Http\Requests\MoveCrudRequest as StoreRequest;
 use App\Models\Entry;
 class MoveCrudController extends CrudController {
 
@@ -16,8 +15,21 @@ class MoveCrudController extends CrudController {
         $this->crud->setCreateView('custom.movements.create');
     }
 
-    public function customSave() {
-        return 'this is custom save';
+    public function customSave(StoreRequest $request) {
+        $entry = Entry::findOrFail($request->entry_id);
+        if(trim(strtolower($request->room_id)) == trim(strtolower($entry->room_id))){
+            \Alert::error('Harus pindah ke ruang berbeda')->flash();
+            return redirect()->route('custom.movements.create', $request->entry_id);
+        }
+        $now = date("Y-m-d H:i:s");
+        $entry->update(['leave_date'=>$now]);
+        Entry::create([
+            'registration_id' => $entry->registration_id,
+            'room_id' => $request->room_id,
+            'entry_date'=> $now,
+            'status'=> 2 , // 1 new entry ; 2 moving patient
+        ]);
+        return redirect()->route('crud.entries.index');
     }
 
     public function customCreate($id)
@@ -35,14 +47,13 @@ class MoveCrudController extends CrudController {
             'default' => $entry->registration_id
         ]);
         $this->crud->addField([
-            'name' => 'room_id',
-            'label' => "Room ID"
+            'name' => 'entry_id',
+            'type' => "hidden",
+            'default' => $id
         ]);
         $this->crud->addField([
-            'name' => 'entry_date',
-            'default' => date("Y-m-d H:i:s"),
-            'label' => "Tanggal Masuk",
-            'type' => 'datetime'
+            'name' => 'room_id',
+            'label' => "Room ID"
         ]);
         $this->data['crud'] = $this->crud;
         $this->data['saveAction'] = $this->getSaveAction();

@@ -12,7 +12,7 @@ class EntryCrudController extends CrudController {
         $this->crud->setModel("App\Models\Entry");
         $this->crud->setRoute("admin/entries");
         $this->crud->setEntityNameStrings('entry', 'entries');
-        //$this->crud->query = $this->crud->query->where('leave_date', null);
+        $this->crud->query = $this->crud->query->orderBy('id','desc');
         $this->crud->setColumns(['registration_id', 'room_id', 'entry_date', 'leave_date', 'status']);
         $this->crud->addButtonFromView('line', 'move', 'move', 'beginning');
         $this->crud->enableExportButtons();
@@ -30,6 +30,24 @@ class EntryCrudController extends CrudController {
             'label' => "Tanggal Masuk",
             'type' => 'datetime'
         ]);
+        $this->crud->addFilter([
+            'type'=>'simple',
+            'name'=>'newly_registered',
+            'label'=>'Pasien Baru'
+        ],
+        false,
+        function(){
+            $this->crud->addClause('where', 'status', '1'); 
+        });
+        $this->crud->addFilter([
+            'type'=>'simple',
+            'name'=>'moved_patient',
+            'label'=>'Pasien Pindah'
+        ],
+        false,
+        function(){
+            $this->crud->addClause('where', 'status', '2'); 
+        });
     }
 
 	public function store(StoreRequest $request)
