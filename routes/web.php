@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $url = "localhost:3000/registrations";
+    $response = \Httpful\Request::get($url)
+        ->addHeader('Authorization', 'token')
+        ->send();
+    return response()->json($response->body->data->pendaftaran);
 });
 Route::group(['namespace'=>'Admin'], function(){
     Route::get('/admin/movements/custom_create/{id}', 'MoveCrudController@customCreate')->name('custom.movements.create');

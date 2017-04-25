@@ -30,23 +30,40 @@ class EntryCrudController extends CrudController {
             'label' => "Tanggal Masuk",
             'type' => 'datetime'
         ]);
-        $this->crud->addFilter([
-            'type'=>'simple',
-            'name'=>'newly_registered',
-            'label'=>'Pasien Baru'
-        ],
-        false,
-        function(){
-            $this->crud->addClause('where', 'status', '1'); 
-        });
-        $this->crud->addFilter([
-            'type'=>'simple',
-            'name'=>'moved_patient',
-            'label'=>'Pasien Pindah'
-        ],
-        false,
-        function(){
-            $this->crud->addClause('where', 'status', '2'); 
+        // $this->crud->addFilter([
+        //     'type'=>'simple',
+        //     'name'=>'newly_registered',
+        //     'label'=>'Pasien Baru'
+        // ],
+        // false,
+        // function(){
+        //     $this->crud->addClause('where', 'status', '1'); 
+        // });
+        // $this->crud->addFilter([
+        //     'type'=>'simple',
+        //     'name'=>'moved_patient',
+        //     'label'=>'Pasien Pindah'
+        // ],
+        // false,
+        // function(){
+        //     $this->crud->addClause('where', 'status', '2'); 
+        // });
+        $this->crud->addFilter([ // dropdown filter
+            'name' => 'status',
+            'type' => 'dropdown',
+            'label'=> 'Status'
+        ], [
+            1 => 'Pasien Baru',
+            2 => 'Pasien Pindah',
+        ], function($value) { // if the filter is active
+            switch($value) {
+                case 1:
+                    $this->crud->addClause('where', 'status', 1);
+                    break;
+                default:
+                    $this->crud->addClause('where', 'status', 2);
+                    break;
+            }
         });
     }
 

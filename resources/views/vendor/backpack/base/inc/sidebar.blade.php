@@ -20,7 +20,9 @@
           <!-- ==== Recommended place for admin menu items ==== -->
           <!-- ================================================ -->
           <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
+          <li><a href="{{ url('admin/registrations') }}"><i class="fa fa-arrow-circle-right"></i> <span>Registrasi</span></a></li>
           <li><a href="{{ url('admin/entries') }}"><i class="fa fa-arrow-circle-right"></i> <span>Pasien Masuk</span></a></li>
+          <li><a href="{{ url('admin/entries') }}"><i class="fa fa-arrow-circle-left"></i> <span>Pasien Keluar</span></a></li>
           <!-- ======================================= -->
           <li class="header">{{ trans('backpack::base.user') }}</li>
           
